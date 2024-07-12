@@ -1,7 +1,7 @@
 export default function Hero() {
   return (
-    <div className="relative h-screen w-full overflow-hidden">
-      <div className="absolute inset-0 -left-[25%] -top-[25%] h-[150%] w-[150%]">
+    <div className="relative mx-auto w-full overflow-hidden">
+      <div className="absolute inset-0 -left-[50%] -top-[50%] h-[200%] w-[200%]">
         <iframe
           src="https://www.youtube.com/embed/0M1C9yEzplI?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&playlist=0M1C9yEzplI"
           allow="autoplay; encrypted-media"
