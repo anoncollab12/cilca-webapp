@@ -28,13 +28,13 @@ export default function NavBar() {
           <div className="flex items-center lg:order-2">
             <a
               href="#"
-              className="mr-2 rounded-lg px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-gray-300 lg:px-5 lg:py-2.5"
+              className="o-2 mr-2 rounded-lg text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-gray-300 lg:px-5 lg:py-2.5"
             >
               Registro
             </a>
             <a
               href="#"
-              className="bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 mr-2 rounded-lg px-4 py-2 text-sm font-medium focus:outline-none focus:ring-4 lg:px-5 lg:py-2.5"
+              className="bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 mr-2 rounded-lg p-2 text-sm font-medium focus:outline-none focus:ring-4 lg:px-5 lg:py-2.5"
             >
               Inicia sesión
             </a>
