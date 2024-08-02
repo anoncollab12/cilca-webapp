@@ -1,6 +1,5 @@
 "use client";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { esES } from "@clerk/localizations";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -83,7 +82,7 @@ export default function NavBar() {
             <ul className="mt-4 flex flex-col font-medium lg:mt-0 lg:flex-row lg:space-x-8">
               <li>
                 <Link
-                  href="/"
+                  href="/cursos"
                   className="bg-primary-700 lg:text-primary-700 block rounded  py-2 pl-3 pr-4 lg:bg-transparent lg:p-0"
                   aria-current="page"
                 >
