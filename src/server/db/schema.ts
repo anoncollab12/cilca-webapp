@@ -18,19 +18,24 @@ import {
  */
 export const createTable = pgTableCreator((name) => `cilca_${name}`);
 
-export const posts = createTable(
-  "post",
+export const cursos = createTable(
+  "curso",
   {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
+    name: varchar("name", { length: 256 }).notNull(),
+    urlThumbnail: varchar("urlThumbnail", { length: 1024 }).notNull(),
+    urlTrailer: varchar("urlTrailer", { length: 1024 }).notNull(),
+    description: varchar("description", { length: 256 }).notNull(),
+    category: varchar("category", { length: 256 }).notNull(),
+    cost: varchar("name", { length: 256 }).notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
-      () => new Date()
+      () => new Date(),
     ),
   },
   (example) => ({
     nameIndex: index("name_idx").on(example.name),
-  })
+  }),
 );

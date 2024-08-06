@@ -7,6 +7,18 @@ import {
   timestamp,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
+import { type Config, defineConfig } from "drizzle-kit";
+
+import { env } from "~/env";
+
+export default defineConfig({
+  schema: "./src/server/db/schema.ts",
+  dialect: "postgresql",
+  dbCredentials: {
+    url: env.POSTGRES_URL,
+  },
+  tablesFilter: ["t3gallery_*"],
+}) satisfies Config;
 
 // Use this object to send drizzle queries to your DB
 export const db = drizzle(sql);

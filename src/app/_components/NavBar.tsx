@@ -1,8 +1,8 @@
 "use client";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { esES } from "@clerk/localizations";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function NavBar() {
@@ -15,7 +15,7 @@ export default function NavBar() {
     <header className="sticky top-0 z-10">
       <nav className=" border-gray-200 bg-white px-4 py-2.5 lg:px-6">
         <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between">
-          <a href="#" className="flex items-center">
+          <Link href="/" className="flex items-center">
             <Image
               src="/assets/cilcaLogo.png"
               className="sm:h-15 sm:w-15"
@@ -27,7 +27,7 @@ export default function NavBar() {
             <span className="self-center whitespace-nowrap text-xl font-semibold text-fuchsia-700">
               CILCA
             </span>
-          </a>
+          </Link>
           <div className="flex items-center lg:order-2">
             <SignedOut>
               <SignInButton />
@@ -81,45 +81,45 @@ export default function NavBar() {
           >
             <ul className="mt-4 flex flex-col font-medium lg:mt-0 lg:flex-row lg:space-x-8">
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/cursos"
                   className="bg-primary-700 lg:text-primary-700 block rounded  py-2 pl-3 pr-4 lg:bg-transparent lg:p-0"
                   aria-current="page"
                 >
                   Cursos
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/membresia"
                   className="lg:hover:text-primary-700 block border-b border-gray-100 py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent"
                 >
                   Membresía
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/"
                   className="lg:hover:text-primary-700 block border-b border-gray-100 py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent"
                 >
                   Equipo
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/"
                   className="lg:hover:text-primary-700 block border-b border-gray-100 py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent"
                 >
                   Beca un niño
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/"
                   className="lg:hover:text-primary-700 block border-b border-gray-100 py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent"
                 >
                   Contacto
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
