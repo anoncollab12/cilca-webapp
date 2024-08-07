@@ -25,8 +25,6 @@ export default function CursoCard({
           className="h-full w-full object-cover"
           src={urlThumbnail}
           alt={name}
-          layout="fill"
-          objectFit="cover"
         />
       </div>
       <div className="p-6">
