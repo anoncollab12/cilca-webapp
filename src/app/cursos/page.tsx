@@ -170,6 +170,7 @@ export default async function Cursos() {
             {curso.map((curso) => (
               <CursoCard
                 key={curso.id}
+                id={curso.id}
                 name={curso.name}
                 urlThumbnail={curso.urlThumbnail}
                 urlTrailer={curso.urlTrailer}

@@ -39,7 +39,7 @@ export default function Hero() {
               </svg>
             </a>
             <a
-              href="#"
+              href="/cursos"
               className="inline-flex items-center justify-center rounded-lg border border-gray-700 px-5 py-3 text-center text-base font-medium text-white hover:bg-gray-700 focus:ring-4 focus:ring-gray-800"
             >
               <svg

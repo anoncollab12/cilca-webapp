@@ -1,23 +1,15 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "~/components/ui/dialog";
-
 interface CursoCardProps {
+  id: number;
   name: string;
   urlThumbnail: string;
   urlTrailer: string;
 }
 export default function CursoCard({
+  id,
   name,
   urlThumbnail,
   urlTrailer,
 }: CursoCardProps) {
-  const videoId = urlTrailer.slice(-11);
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
       <div className="relative h-48 w-full">
@@ -28,28 +20,12 @@ export default function CursoCard({
         />
       </div>
       <div className="p-6">
-        <Dialog>
-          <DialogTrigger>{name}</DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>{name}</DialogTitle>
-              <DialogDescription>
-                <iframe
-                  className="h-72 w-96"
-                  src={`https://www.youtube.com/embed/${videoId}?si=draVAGR-JHfe_lvO&amp;controls=0`}
-                  title="YouTube video player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                ></iframe>
-              </DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
         <a
-          href="#"
+          href={`curso/${id}`}
           className="text-lg font-semibold leading-tight text-gray-900 hover:underline"
-        ></a>
+        >
+          {name}
+        </a>
 
         <ul className="mt-2 flex items-center gap-4">
           <li className="flex items-center gap-2">
