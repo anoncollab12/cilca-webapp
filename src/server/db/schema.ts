@@ -69,7 +69,7 @@ export const cursos = createTable(
   "curso",
   {
     id: serial("id").primaryKey(),
-    authorId: integer("author_id")
+    authorId: varchar("author_id")
       .notNull()
       .references(() => users.id),
     name: varchar("name", { length: 256 }).notNull(),
@@ -136,7 +136,7 @@ export const modulosRelations = relations(modulos, ({ one }) => ({
 export const enrollment = createTable(
   "enrollment",
   {
-    userId: integer("user_id")
+    userId: varchar("user_id")
       .notNull()
       .references(() => users.id),
     cursoId: integer("curso_id")
