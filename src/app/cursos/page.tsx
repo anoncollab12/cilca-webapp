@@ -172,8 +172,10 @@ export default async function Cursos() {
                 key={curso.id}
                 id={curso.id}
                 name={curso.name}
+                authorid={curso.authorId}
                 urlThumbnail={curso.urlThumbnail}
                 urlTrailer={curso.urlTrailer}
+                price={curso.price}
               />
             ))}
           </div>

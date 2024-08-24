@@ -1,15 +1,22 @@
+import { getAuthorName } from "~/server/queries";
+
 interface CursoCardProps {
   id: number;
   name: string;
+  authorid: string;
   urlThumbnail: string;
   urlTrailer: string;
+  price: string;
 }
-export default function CursoCard({
+export default async function CursoCard({
   id,
   name,
+  authorid,
   urlThumbnail,
+  price,
   urlTrailer,
 }: CursoCardProps) {
+  const authorName = await getAuthorName(authorid);
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
       <div className="relative h-48 w-full">
@@ -45,7 +52,7 @@ export default function CursoCard({
               />
             </svg>
             <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-              Juan Perez
+              {authorName}
             </p>
           </li>
 
@@ -69,7 +76,7 @@ export default function CursoCard({
 
         <div className="mt-4 flex items-center justify-between gap-4">
           <p className="text-2xl font-extrabold leading-tight text-gray-900">
-            $100
+            {`$${price}`}
           </p>
 
           <button

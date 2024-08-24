@@ -1,4 +1,4 @@
-import { getCourse } from "~/server/queries";
+import { getAuthorName, getCourse } from "~/server/queries";
 
 export default async function Curso({
   params,
@@ -8,6 +8,7 @@ export default async function Curso({
   const idAsNumber = parseInt(params.idcurso);
   if (Number.isNaN(idAsNumber)) throw new Error("Curso ID invalido");
   const curso = await getCourse(idAsNumber);
+  const authorName = await getAuthorName(curso.authorId);
   if (!curso) {
     return <div>No encontramos el curso</div>;
   }
@@ -31,7 +32,7 @@ export default async function Curso({
             </h1>
             <div className="mt-4 sm:flex sm:items-center sm:gap-4">
               <p className="text-2xl font-extrabold text-gray-900 dark:text-white sm:text-3xl">
-                {curso.price}
+                {`$${curso.price}`}
               </p>
 
               <div className="mt-2 flex items-center gap-2 sm:mt-0">
@@ -99,7 +100,7 @@ export default async function Curso({
                   href="#"
                   className="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white"
                 >
-                  345 Reviews
+                  {authorName}
                 </a>
               </div>
             </div>
