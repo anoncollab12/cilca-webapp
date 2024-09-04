@@ -7,6 +7,7 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import NavBar from "./_components/NavBar";
 import Footer from "./_components/Footer";
+import { Toaster } from "~/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "CILCA: cursos holísticos",
@@ -22,6 +23,7 @@ export default function RootLayout({
       <html lang="es" className={`${GeistSans.variable}`}>
         <body>
           <NavBar />
+          <Toaster position="top-right" />
           {children}
           <Footer />
         </body>
