@@ -1,5 +1,3 @@
-import { SignIn, SignedIn, SignedOut } from "@clerk/nextjs";
-import SideNav from "~/app/_components/SideNav";
 import { getModulo } from "~/server/queries";
 
 export default async function Modulo({
