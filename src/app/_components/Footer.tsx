@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -61,8 +62,8 @@ export default function Footer() {
               </h2>
               <ul className="text-gray-600">
                 <li className="mb-4">
-                  <a href="#" className="hover:underline">
-                    Privacy Policy
+                  <a href="/privacy-policy" className="hover:underline">
+                    Política de privacidad
                   </a>
                 </li>
                 <li>
