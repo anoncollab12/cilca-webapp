@@ -38,17 +38,24 @@ export async function getAuthorName(id: string) {
 
 export async function insertFormCourse(formData: FormData) {
   try {
-    await db.insert(cursos).values({
-      authorId: "123",
-      name: formData.get("name"),
-      urlThumbnail: formData.get("urlThumbnail"),
-      urlTrailer: formData.get("urlTrailer"),
-      description: formData.get("description"),
-      category: "Arte",
-      price: formData.get("price"),
-    });
+    const newCourse = {
+      authorId: "123" as string,
+      name: formData.get("name") as string,
+      urlThumbnail: formData.get("urlThumbnail") as string,
+      urlTrailer: formData.get("urlTrailer") as string,
+      description: formData.get("description") as string,
+      category: "Arte" as (typeof cursoCategoriaeEnum.enumValues)[number],
+      price: formData.get("price") as string,
+    };
+
+    const insertedCourse = await db
+      .insert(cursos)
+      .values(newCourse)
+      .returning();
+    return insertedCourse[0];
   } catch (error) {
-    return { message: "Error creando curso." };
+    console.error("Error inserting course:", error);
+    throw error;
   }
 }
 
@@ -72,7 +79,7 @@ export async function insertCourse(
       price: price,
     });
   } catch (error) {
-    return error("Error inserting curso:", error);
+    console.error("Error inserting course:", error);
     throw error;
   }
 }
@@ -84,12 +91,12 @@ export async function insertModulo(
   order: number,
   urlVideo: string,
 ) {
-  const module = await db.insert(modulos).values({
+  const newmodule = await db.insert(modulos).values({
     cursoId: cursoId,
     name: name,
     description: description,
     urlVideo: urlVideo,
     order: order,
   });
-  return module;
+  return newmodule;
 }
