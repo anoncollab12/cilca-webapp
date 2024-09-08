@@ -1,3 +1,4 @@
+import ModuleSideNav from "~/app/_components/ModuleSideNav";
 import { getModulo } from "~/server/queries";
 
 export default async function Modulo({
@@ -13,21 +14,24 @@ export default async function Modulo({
   return (
     <>
       <section className="bg-white dark:bg-gray-900">
-        <div className="mx-auto max-w-screen-xl px-4 py-8 text-center lg:px-12 lg:py-16">
-          <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-            {`Módulo ${modulo.order}: ${modulo.name}`}
-          </h1>
-          <p className="mb-8 text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
-            {modulo.description}
-          </p>
-          <iframe
-            className="h-96 w-full"
-            src={`https://www.youtube.com/embed/${videoId}?si=draVAGR-JHfe_lvO&amp;controls=0`}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          ></iframe>
+        <div className="flex w-full">
+          <ModuleSideNav />
+          <div className="flex w-full flex-col items-center justify-start">
+            <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+              {`Módulo ${modulo.order}: ${modulo.name}`}
+            </h1>
+            <p className="mb-8 text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
+              {modulo.description}
+            </p>
+            <iframe
+              className="h-96 w-full"
+              src={`https://www.youtube.com/embed/${videoId}?si=draVAGR-JHfe_lvO&amp;controls=0`}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            ></iframe>
+          </div>
         </div>
       </section>
     </>
