@@ -2,8 +2,6 @@
 import { db } from "./db";
 import { auth } from "@clerk/nextjs/server";
 import { type cursoCategoriaeEnum, cursos, modulos } from "./db/schema";
-import { courseFormSchema } from "~/lib/validations";
-import { z } from "zod";
 
 export async function getCourse(id: number) {
   const curso = await db.query.cursos.findFirst({
@@ -40,22 +38,24 @@ export async function getAuthorName(id: string) {
 
 export async function insertFormCourse(formData: FormData) {
   try {
-    const parsedData = Object.fromEntries(formData.entries());
-    const validatedData = courseFormSchema.parse(parsedData);
+    const newCourse = {
+      authorId: "123" as string,
+      name: formData.get("name") as string,
+      urlThumbnail: formData.get("urlThumbnail") as string,
+      urlTrailer: formData.get("urlTrailer") as string,
+      description: formData.get("description") as string,
+      category: "Arte" as (typeof cursoCategoriaeEnum.enumValues)[number],
+      price: formData.get("price") as string,
+    };
 
     const insertedCourse = await db
       .insert(cursos)
-      .values(validatedData)
+      .values(newCourse)
       .returning();
     return insertedCourse[0];
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      console.error("Validation Error:", error.errors);
-      throw new Error(error.errors.map((e) => e.message).join(", "));
-    } else {
-      console.error("Error inserting course:", error);
-      throw error;
-    }
+    console.error("Error inserting course:", error);
+    throw error;
   }
 }
 
