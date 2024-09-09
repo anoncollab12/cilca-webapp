@@ -23,7 +23,7 @@ export default function RootLayout({
       <html lang="es" className={`${GeistSans.variable}`}>
         <body>
           <NavBar />
-          <Toaster position="top-right" />
+          <Toaster position="bottom-right" />
           {children}
           <Footer />
         </body>

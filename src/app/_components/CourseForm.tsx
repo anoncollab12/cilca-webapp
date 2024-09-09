@@ -1,3 +1,4 @@
+"use client";
 import { Label } from "@radix-ui/react-label";
 import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
@@ -6,6 +7,26 @@ import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 import { insertFormCourse } from "~/server/queries";
 export default function CourseForm() {
+  async function handleSubmit(formData: FormData) {
+    const result = await insertFormCourse(formData);
+    if (result) {
+      toast("Error", {
+        description: result,
+        action: {
+          label: "Cerrar",
+          onClick: () => console.log("Cerrar"),
+        },
+      });
+    } else {
+      toast("Curso creado", {
+        description: result,
+        action: {
+          label: "Cerrar",
+          onClick: () => console.log("Cerrar"),
+        },
+      });
+    }
+  }
   return (
     <div className="bg-purple-50 py-8">
       <Card className="mx-auto w-full max-w-2xl">
@@ -13,7 +34,7 @@ export default function CourseForm() {
           <CardTitle>Crea un curso nuevo</CardTitle>
         </CardHeader>
         <CardContent>
-          <form action={insertFormCourse}>
+          <form action={handleSubmit}>
             <div className="space-y-4">
               <div className="space-y-1">
                 <Label htmlFor="name" className="font-bold">
@@ -62,6 +83,7 @@ export default function CourseForm() {
                 <Input
                   id="price"
                   name="price"
+                  type="number"
                   required
                   min="0"
                   step="0.01"

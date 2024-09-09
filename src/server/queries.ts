@@ -2,6 +2,8 @@
 import { db } from "./db";
 import { auth } from "@clerk/nextjs/server";
 import { type cursoCategoriaeEnum, cursos, modulos } from "./db/schema";
+import { courseFormSchema } from "~/lib/validations";
+import { z } from "zod";
 
 export async function getCourse(id: number) {
   const curso = await db.query.cursos.findFirst({
@@ -37,25 +39,20 @@ export async function getAuthorName(id: string) {
 }
 
 export async function insertFormCourse(formData: FormData) {
-  try {
-    const newCourse = {
-      authorId: "123" as string,
-      name: formData.get("name") as string,
-      urlThumbnail: formData.get("urlThumbnail") as string,
-      urlTrailer: formData.get("urlTrailer") as string,
-      description: formData.get("description") as string,
-      category: "Arte" as (typeof cursoCategoriaeEnum.enumValues)[number],
-      price: formData.get("price") as string,
-    };
+  const parsedData = {
+    ...Object.fromEntries(formData.entries()),
+    authorId: "123" as string,
+    category: "Arte" as (typeof cursoCategoriaeEnum.enumValues)[number],
+  };
 
-    const insertedCourse = await db
-      .insert(cursos)
-      .values(newCourse)
-      .returning();
-    return insertedCourse[0];
+  const validatedData = courseFormSchema.safeParse(parsedData);
+  if (!validatedData.success) {
+    return "Error en información del curso.";
+  }
+  try {
+    await db.insert(cursos).values(validatedData.data);
   } catch (error) {
-    console.error("Error inserting course:", error);
-    throw error;
+    return "No se pudo agregar curso.";
   }
 }
 
