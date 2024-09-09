@@ -1,8 +1,10 @@
 import { z } from "zod";
+import { cursoCategoriaeEnum } from "~/server/db/schema";
 
 export const courseIdSchema = z.string().cuid();
 
 export const courseFormSchema = z.object({
+  authorId: z.string(),
   name: z
     .string()
     .min(1, { message: "No dejes el titulo vacío" })
@@ -19,10 +21,8 @@ export const courseFormSchema = z.object({
     .string()
     .min(1, { message: "No dejes el link de youtube vacío" })
     .max(1024, { message: "Límite de 1024 caracteres" }),
-  price: z.preprocess(
-    (val) => Number(val),
-    z.number().min(0, { message: "El precio debe ser mayor o igual a 0" }),
-  ),
+  category: z.enum(cursoCategoriaeEnum.enumValues),
+  price: z.string(),
 });
 
 export type TCourseForm = z.infer<typeof courseFormSchema>;
