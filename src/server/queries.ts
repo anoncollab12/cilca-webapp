@@ -1,9 +1,8 @@
 "use server";
 import { db } from "./db";
 import { auth } from "@clerk/nextjs/server";
-import { type cursoCategoriaeEnum, cursos, modulos } from "./db/schema";
+import { cursos, modulos } from "./db/schema";
 import { courseFormSchema } from "~/lib/validations";
-import { z } from "zod";
 
 export async function getCourse(id: number) {
   const curso = await db.query.cursos.findFirst({
@@ -45,7 +44,7 @@ export async function getUserRole() {
   });
 
   if (!user) {
-    return "Usuario no encontrado";
+    return null;
   }
   return user.role;
 }
@@ -58,12 +57,12 @@ export async function insertFormCourse(formData: FormData) {
   };
   const validatedData = courseFormSchema.safeParse(parsedData);
   if (!validatedData.success) {
-    return `Error en información del curso: ${validatedData.error}`;
+    return `Error en información del curso: ${validatedData.error.toString()}`;
   }
   try {
     await db.insert(cursos).values(validatedData.data);
   } catch (error) {
-    return "No se pudo agregar curso.";
+    return `No se pudo agregar curso: ${(error as Error).message}`;
   }
 }
 
