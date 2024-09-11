@@ -4,7 +4,17 @@ import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
 import { Textarea } from "~/components/ui/textarea";
+import { cursoCategoriaeEnum } from "~/server/db/schema";
 import { insertFormCourse } from "~/server/queries";
 export default function CourseForm() {
   async function handleSubmit(formData: FormData) {
@@ -56,6 +66,29 @@ export default function CourseForm() {
                 ></Textarea>
                 <p className="text-slate-500">
                   Este será la descripción del curso.
+                </p>
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="category" className="font-bold">
+                  Categoría
+                </Label>
+                <Select name="category" required>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecciona la categoría" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Categoría</SelectLabel>
+                      {cursoCategoriaeEnum.enumValues.map((category) => (
+                        <SelectItem key={category} value={category}>
+                          {category}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <p className="text-slate-500">
+                  Este será la categoría del curso.
                 </p>
               </div>
               <div className="space-y-1">

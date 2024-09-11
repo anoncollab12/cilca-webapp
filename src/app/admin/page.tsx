@@ -1,7 +1,13 @@
-import { columns, type Payment } from "./columns";
-import { DataTable } from "./data-table";
+import { auth } from "@clerk/nextjs/server";
+import { columns, type Payment } from "./payments/columns";
+import { DataTable } from "./payments/data-table";
+import { redirect } from "next/navigation";
 
 async function getData(): Promise<Payment[]> {
+  const { sessionClaims } = auth();
+  if (sessionClaims?.metadata.role !== "admin") {
+    redirect("/");
+  }
   // Fetch data from API
   return [
     {

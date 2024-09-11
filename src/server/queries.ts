@@ -38,46 +38,32 @@ export async function getAuthorName(id: string) {
   return author.name;
 }
 
+export async function getUserRole() {
+  const { userId } = auth();
+  const user = await db.query.users.findFirst({
+    where: (model, { eq }) => eq(model.id, userId!),
+  });
+
+  if (!user) {
+    return "Usuario no encontrado";
+  }
+  return user.role;
+}
+
 export async function insertFormCourse(formData: FormData) {
+  const { userId }: { userId: string | null } = auth();
   const parsedData = {
     ...Object.fromEntries(formData.entries()),
-    authorId: "123" as string,
-    category: "Arte" as (typeof cursoCategoriaeEnum.enumValues)[number],
+    authorId: userId,
   };
-
   const validatedData = courseFormSchema.safeParse(parsedData);
   if (!validatedData.success) {
-    return "Error en información del curso.";
+    return `Error en información del curso: ${validatedData.error}`;
   }
   try {
     await db.insert(cursos).values(validatedData.data);
   } catch (error) {
     return "No se pudo agregar curso.";
-  }
-}
-
-export async function insertCourse(
-  authorId: string,
-  name: string,
-  urlThumbnail: string,
-  urlTrailer: string,
-  description: string,
-  category: (typeof cursoCategoriaeEnum.enumValues)[number],
-  price: string,
-) {
-  try {
-    await db.insert(cursos).values({
-      authorId: authorId,
-      name: name,
-      urlThumbnail: urlThumbnail,
-      urlTrailer: urlTrailer,
-      description: description,
-      category: category,
-      price: price,
-    });
-  } catch (error) {
-    console.error("Error inserting course:", error);
-    throw error;
   }
 }
 
