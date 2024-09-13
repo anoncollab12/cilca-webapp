@@ -63,5 +63,5 @@
   "ct3aMetadata": {
     "initVersion": "7.36.0"
   },
-  "packageManager": "pnpm@8.9.2"
+  "packageManager": "auto"
 }
