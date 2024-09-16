@@ -1,5 +1,6 @@
 "use client";
 import { Label } from "@radix-ui/react-label";
+import Image from "next/image";
 import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "~/components/ui/card";
@@ -44,6 +45,12 @@ export default function CourseForm() {
           <CardTitle>Crea un curso nuevo</CardTitle>
         </CardHeader>
         <CardContent>
+          <Image
+            src="/assets/formIcons/form.png"
+            alt="Form"
+            width={70}
+            height={70}
+          />
           <form action={handleSubmit}>
             <div className="space-y-4">
               <div className="space-y-1">
@@ -92,6 +99,12 @@ export default function CourseForm() {
                 </p>
               </div>
               <div className="space-y-1">
+                <Image
+                  src="/assets/formIcons/movie.png"
+                  alt="movie"
+                  width={70}
+                  height={70}
+                />
                 <Label htmlFor="urlTrailer" className="font-bold">
                   Link de Trailer Youtube
                 </Label>
@@ -101,6 +114,12 @@ export default function CourseForm() {
                 </p>
               </div>
               <div className="space-y-1">
+                <Image
+                  src="/assets/formIcons/image.png"
+                  alt="movie"
+                  width={70}
+                  height={70}
+                />
                 <Label htmlFor="urlThumbnail" className="font-bold">
                   Link de Imagen Thumbnail
                 </Label>
@@ -110,6 +129,12 @@ export default function CourseForm() {
                 </p>
               </div>
               <div className="space-y-1">
+                <Image
+                  src="/assets/formIcons/dinero.png"
+                  alt="dinero"
+                  width={70}
+                  height={70}
+                />
                 <Label htmlFor="price" className="font-bold">
                   Precio
                 </Label>
