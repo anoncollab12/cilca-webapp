@@ -1,7 +1,6 @@
 "use client";
 import { Label } from "@radix-ui/react-label";
 import Image from "next/image";
-import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
@@ -16,10 +15,54 @@ import {
 } from "~/components/ui/select";
 import { Textarea } from "~/components/ui/textarea";
 import { cursoCategoriaeEnum } from "~/server/db/schema";
-import { insertFormCourse } from "~/server/queries";
+import ModuleAddForm from "./ModuleAddForm";
+import { Separator } from "~/components/ui/separator";
+import { insertFormCourse, insertModulo } from "~/server/queries";
+import { moduleSchema } from "~/lib/validations";
+import { type z } from "zod";
+import { toast } from "sonner";
+import { useState } from "react";
 export default function CourseForm() {
+  const [isLoading, setIsLoading] = useState(false);
+
   async function handleSubmit(formData: FormData) {
-    const result = await insertFormCourse(formData);
+    setIsLoading(true);
+    const courseData = {
+      name: formData.get(`name`),
+      description: formData.get(`description`),
+      urlThumbnail: formData.get(`urlThumbnail`),
+      urlTrailer: formData.get(`urlTrailer`),
+      category: formData.get(`category`),
+      price: formData.get(`price`),
+    };
+    const cursoId = await insertFormCourse(courseData);
+
+    if (!cursoId) {
+      toast("Error", {
+        description: "Curso no pudo ser creado",
+        action: {
+          label: "Cerrar",
+          onClick: () => console.log("Cerrar"),
+        },
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    const modules: z.infer<typeof moduleSchema>[] = [];
+    for (let i = 0; formData.has(`class-title-${i}`); i++) {
+      const moduleData = {
+        name: formData.get(`class-title-${i}`),
+        description: formData.get(`class-description-${i}`),
+        urlVideo: formData.get(`class-url-${i}`),
+        order: i + 1,
+        cursoId: cursoId,
+      };
+      const validatedData = moduleSchema.parse(moduleData);
+      modules.push(validatedData);
+    }
+
+    const result = await insertModulo(modules);
     if (result) {
       toast("Error", {
         description: result,
@@ -30,13 +73,15 @@ export default function CourseForm() {
       });
     } else {
       toast("Curso creado", {
-        description: result,
+        description: "Curso creado correctamente",
         action: {
           label: "Cerrar",
           onClick: () => console.log("Cerrar"),
         },
       });
     }
+
+    setIsLoading(false);
   }
   return (
     <div className="bg-purple-50 py-8">
@@ -57,10 +102,12 @@ export default function CourseForm() {
                 <Label htmlFor="name" className="font-bold">
                   Título del curso
                 </Label>
-                <Input id="name" name="name" required></Input>
-                <p className="text-slate-500">
-                  Este será el título principal del curso.
-                </p>
+                <Input
+                  id="name"
+                  name="name"
+                  required
+                  placeholder="Este será el título principal del curso."
+                ></Input>
               </div>
               <div className="space-y-1">
                 <Label htmlFor="description" className="font-bold">
@@ -70,10 +117,8 @@ export default function CourseForm() {
                   id="description"
                   name="description"
                   required
+                  placeholder="Este será la descripción del curso."
                 ></Textarea>
-                <p className="text-slate-500">
-                  Este será la descripción del curso.
-                </p>
               </div>
               <div className="space-y-1">
                 <Label htmlFor="category" className="font-bold">
@@ -94,9 +139,6 @@ export default function CourseForm() {
                     </SelectGroup>
                   </SelectContent>
                 </Select>
-                <p className="text-slate-500">
-                  Este será la categoría del curso.
-                </p>
               </div>
               <div className="space-y-1">
                 <Image
@@ -108,10 +150,12 @@ export default function CourseForm() {
                 <Label htmlFor="urlTrailer" className="font-bold">
                   Link de Trailer Youtube
                 </Label>
-                <Input id="urlTrailer" name="urlTrailer" required></Input>
-                <p className="text-slate-500">
-                  Este será el link del video trailer del curso.
-                </p>
+                <Input
+                  id="urlTrailer"
+                  name="urlTrailer"
+                  required
+                  placeholder="www.youtube.com/watch?v=id"
+                ></Input>
               </div>
               <div className="space-y-1">
                 <Image
@@ -123,10 +167,12 @@ export default function CourseForm() {
                 <Label htmlFor="urlThumbnail" className="font-bold">
                   Link de Imagen Thumbnail
                 </Label>
-                <Input id="urlThumbnail" name="urlThumbnail" required></Input>
-                <p className="text-slate-500">
-                  Este será el link de la imagen del curso.
-                </p>
+                <Input
+                  id="urlThumbnail"
+                  name="urlThumbnail"
+                  required
+                  placeholder="www.imgur.com/id.jpeg"
+                ></Input>
               </div>
               <div className="space-y-1">
                 <Image
@@ -145,12 +191,21 @@ export default function CourseForm() {
                   required
                   min="0"
                   step="0.01"
+                  placeholder="0.00"
                 ></Input>
-                <p className="text-slate-500">Este será el precio del curso.</p>
               </div>
             </div>
+            <Separator className="my-5" />
+            <Separator orientation="vertical" />
+            <div className="py-5">
+              <CardTitle>Agrega las clases del curso</CardTitle>
+            </div>
+            <ModuleAddForm />
             <div className="pt-4">
-              <Button type="submit">Crear curso</Button>
+              {" "}
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? "Creando curso..." : "Crear curso"}
+              </Button>
             </div>
           </form>
         </CardContent>

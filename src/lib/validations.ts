@@ -25,4 +25,12 @@ export const courseFormSchema = z.object({
   price: z.string(),
 });
 
+export const moduleSchema = z.object({
+  name: z.string(),
+  description: z.string(),
+  order: z.number(),
+  cursoId: z.number(),
+  urlVideo: z.string(),
+});
+
 export type TCourseForm = z.infer<typeof courseFormSchema>;

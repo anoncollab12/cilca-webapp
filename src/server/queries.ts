@@ -66,36 +66,48 @@ export async function getUserRole() {
   return user.role;
 }
 
-export async function insertFormCourse(formData: FormData) {
-  const { userId }: { userId: string | null } = auth();
-  const parsedData = {
-    ...Object.fromEntries(formData.entries()),
+interface Curso {
+  name: FormDataEntryValue | null;
+  description: FormDataEntryValue | null;
+  urlThumbnail: FormDataEntryValue | null;
+  urlTrailer: FormDataEntryValue | null;
+  category: FormDataEntryValue | null;
+  price: FormDataEntryValue | null;
+}
+export async function insertFormCourse(courseData: Curso) {
+  const userId = auth().userId;
+  const validatedCourse = courseFormSchema.safeParse({
+    ...courseData,
     authorId: userId,
-  };
-  const validatedData = courseFormSchema.safeParse(parsedData);
-  if (!validatedData.success) {
-    return `Error en información del curso: ${validatedData.error.toString()}`;
+  });
+  if (!validatedCourse.success) {
+    throw new Error(
+      `Error in course information: ${validatedCourse.error.toString()}`,
+    );
   }
   try {
-    await db.insert(cursos).values(validatedData.data);
+    const [result] = await db
+      .insert(cursos)
+      .values(validatedCourse.data)
+      .returning({ cursosId: cursos.id });
+    return result ? result.cursosId : null;
   } catch (error) {
-    return `No se pudo agregar curso: ${(error as Error).message}`;
+    console.log(error);
   }
 }
 
-export async function insertModulo(
-  name: string,
-  cursoId: number,
-  description: string,
-  order: number,
-  urlVideo: string,
-) {
-  const newmodule = await db.insert(modulos).values({
-    cursoId: cursoId,
-    name: name,
-    description: description,
-    urlVideo: urlVideo,
-    order: order,
-  });
-  return newmodule;
+interface Module {
+  name: string;
+  description: string;
+  order: number;
+  cursoId: number;
+  urlVideo: string;
+}
+
+export async function insertModulo(moduloArray: Module[]) {
+  try {
+    await db.insert(modulos).values(moduloArray);
+  } catch (error) {
+    return "Error al crear las clases del curso.";
+  }
 }
