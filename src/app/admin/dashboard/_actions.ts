@@ -1,5 +1,6 @@
 "use server";
 import { clerkClient } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 import { checkRole } from "~/lib/roles";
 
 export async function setRole(formData: FormData) {
@@ -12,6 +13,7 @@ export async function setRole(formData: FormData) {
     const update = await clerkClient().users.updateUser(userId, {
       publicMetadata: { role: formData.get("role") },
     });
+    revalidatePath("/admin/dashboard");
     return { message: update.publicMetadata };
   } catch (err) {
     return { message: err };

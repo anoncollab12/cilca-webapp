@@ -4,7 +4,8 @@ import { auth, clerkClient } from "@clerk/nextjs/server";
 import { setRole } from "./_actions";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
-import { Separator } from "@radix-ui/react-select";
+import { Badge } from "~/components/ui/badge";
+import { Separator } from "~/components/ui/separator";
 
 export default async function AdminDashboard(params: {
   searchParams: { search?: string };
@@ -36,7 +37,7 @@ export default async function AdminDashboard(params: {
                     <h3 className="font-medium text-gray-900">
                       {user.firstName} {user.lastName}
                     </h3>
-                    <p className="text-gray-500">
+                    <p>
                       {
                         user.emailAddresses.find(
                           (email) => email.id === user.primaryEmailAddressId,
@@ -44,9 +45,7 @@ export default async function AdminDashboard(params: {
                       }
                     </p>
                   </div>
-                  <span className="rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
-                    {user.publicMetadata.role as string}
-                  </span>
+                  <Badge>{user.publicMetadata.role as string}</Badge>
                 </div>
                 <Separator className="my-4" />
                 <div className="flex gap-4">
