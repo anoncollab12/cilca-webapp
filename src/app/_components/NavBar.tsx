@@ -99,7 +99,7 @@ export default function NavBar() {
               </li>
               <li>
                 <Link
-                  href="/"
+                  href="/team"
                   className="lg:hover:text-primary-700 block border-b border-gray-100 py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent"
                 >
                   Equipo
@@ -115,7 +115,7 @@ export default function NavBar() {
               </li>
               <li>
                 <Link
-                  href="/"
+                  href="/contacto"
                   className="lg:hover:text-primary-700 block border-b border-gray-100 py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent"
                 >
                   Contacto
