@@ -8,8 +8,6 @@ const CilcaInfo = () => {
     <div className="cilca-info">
       {/* Primera Sección */}
       <div className="section">
-        <h1 className="title">CILCA</h1>
-        <h2 className="subtitle">HOLISTIC PROGRAM</h2>
         <div className="purple-box">
           <p>
             <strong>
