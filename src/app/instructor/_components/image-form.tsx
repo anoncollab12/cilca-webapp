@@ -80,7 +80,6 @@ export const ImageForm = ({ initialData, courseId }: TitleFormProps) => {
           <div className="relative mt-2 aspect-video">
             <img
               alt="Upload"
-              fill
               className="rounded-md object-cover"
               src={initialData.title}
             />
