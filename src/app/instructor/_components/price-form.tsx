@@ -27,7 +27,7 @@ interface TitleFormProps {
 
 const formSchema = z.object({
   title: z.string().min(1, {
-    message: "Necesitas agregar un título.",
+    message: "Necesitas agregar un precio.",
   }),
 });
 
@@ -48,7 +48,7 @@ export const PriceForm = ({ initialData, courseId }: TitleFormProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await updatePriceCourse(parseInt(courseId), values.title);
-      toast.success("Titulo de curso actualizado");
+      toast.success("Precio de curso actualizado");
       toggleEdit();
       router.refresh();
     } catch (error: unknown) {
@@ -63,7 +63,7 @@ export const PriceForm = ({ initialData, courseId }: TitleFormProps) => {
   return (
     <div className="mt-6 rounded-md bg-slate-100 p-4 dark:bg-gray-800">
       <div className="flex items-center justify-between font-medium">
-        Título del curso
+        Precio del curso
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancelar</>
@@ -76,7 +76,9 @@ export const PriceForm = ({ initialData, courseId }: TitleFormProps) => {
         </Button>
       </div>
       {!isEditing && (
-        <p className="mt-2 text-sm dark:text-gray-300">{initialData?.title}</p>
+        <p className="mt-2 text-sm dark:text-gray-300">
+          ${parseFloat(initialData?.title)}
+        </p>
       )}
       {isEditing && (
         <Form {...form}>
@@ -92,7 +94,8 @@ export const PriceForm = ({ initialData, courseId }: TitleFormProps) => {
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="ejemplo: Baile de salsa"
+                      type="number"
+                      step="0.01"
                       {...field}
                     />
                   </FormControl>

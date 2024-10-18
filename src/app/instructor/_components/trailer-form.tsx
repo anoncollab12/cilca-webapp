@@ -99,7 +99,7 @@ export const TrailerForm = ({ initialData, courseId }: TitleFormProps) => {
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="ejemplo: Baile de salsa"
+                      placeholder="ejemplo: https://www.youtube.com/watch?v=..."
                       {...field}
                     />
                   </FormControl>

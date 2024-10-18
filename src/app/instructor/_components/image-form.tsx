@@ -98,11 +98,7 @@ export const ImageForm = ({ initialData, courseId }: TitleFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      disabled={isSubmitting}
-                      placeholder="ejemplo: Baile de salsa"
-                      {...field}
-                    />
+                    <Input disabled={isSubmitting} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
