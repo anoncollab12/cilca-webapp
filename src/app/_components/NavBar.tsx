@@ -4,6 +4,7 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import CustomUserButton from "./CustomUserButton";
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,6 +34,7 @@ export default function NavBar() {
               <SignInButton />
             </SignedOut>
             <SignedIn>
+              <CustomUserButton />
               <UserButton />
             </SignedIn>
             <button
