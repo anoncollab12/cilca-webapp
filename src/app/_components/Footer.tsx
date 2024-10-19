@@ -62,7 +62,7 @@ export default function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:underline">
+                  <a href="/terms" className="hover:underline">
                     Términos y condiciones
                   </a>
                 </li>

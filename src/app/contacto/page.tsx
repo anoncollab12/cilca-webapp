@@ -35,38 +35,81 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validate()) {
-      // Aquí puedes manejar el envío del formulario
       console.log("Form submitted:", formData);
     }
   };
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900">
-      {/* Banner Section */}
-      <div className="bg-purple-600 py-8 text-white">
+      {/* YouTube Video Section */}
+      <div className="bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto">
+          <iframe
+            width="100%"
+            height="450"
+            src="https://www.youtube.com/embed/ryUXJ1jCdL4?autoplay=1&mute=1"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="mb-0"
+            style={{ marginTop: "-4px" }} // Reduce margin to align with header
+          ></iframe>
+        </div>
+      </div>
+
+      {/* Organization Info Section */}
+      <div className="bg-[#A0007E] text-white py-12">
         <div className="container mx-auto text-center">
-          <h1 className="mb-4 text-3xl font-bold">Luz, Ciencia y Arte</h1>
-          <p className="mb-4">
+          <img
+            src="https://luzcienciayarte.org/wp-content/uploads/2021/08/logo-fundacion-menu-e1624821189819.png"
+            alt="Luz, Ciencia y Arte Logo"
+            className="mx-auto mb-4"
+            style={{ maxWidth: "150px" }}
+          />
+          <h1 className="text-3xl font-bold mt-4">Luz, Ciencia y Arte</h1>
+          <p className="mb-4 mt-2">
             Luz, Ciencia y Arte es una organización sin fines de lucro, formada
             con la finalidad de contribuir al desarrollo integral y sostenible
-            de la sociedad.
+            de la sociedad, así como positivamente en el desarrollo integral de
+            la infancia en México, fomentando el conocimiento de la ciencia, el
+            arte y la cultura además de formación basada en la responsabilidad y
+            sustentabilidad del medio ambiente.
           </p>
-          <div className="flex justify-center space-x-4">
+          <div className="flex justify-center space-x-4 mt-4">
             <a
               href="https://www.facebook.com/luzcienciayarte"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded bg-white px-4 py-2 text-purple-600 shadow hover:bg-gray-100"
+              className="rounded-full bg-white p-2 text-[#A0007E] shadow hover:bg-gray-100"
             >
-              Visita nuestro Facebook
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                className="bi bi-facebook"
+                viewBox="0 0 16 16"
+              >
+                <path d="M8.94 6.5H7.5V5.5c0-.28.22-.5.5-.5h1V3.5H8c-1.1 0-2 .9-2 2v1H5v1.5h1v4h1.5v-4h1.44l.06-1.5z" />
+              </svg>
             </a>
             <a
               href="https://www.youtube.com/@fundacionluzcienciayarte"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded bg-white px-4 py-2 text-red-600 shadow hover:bg-gray-100"
+              className="rounded-full bg-white p-2 text-[#A0007E] shadow hover:bg-gray-100"
             >
-              Visita nuestro YouTube
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                className="bi bi-youtube"
+                viewBox="0 0 16 16"
+              >
+                <path d="M8.051 1.999c-1.999 0-3.998.001-5.997.001C.896 2 0 2.896 0 4.054v7.892C0 13.104.896 14 2.054 14c1.999 0 3.998-.001 5.997-.001 1.999 0 3.998.001 5.997.001C15.104 14 16 13.104 16 11.946V4.054C16 2.896 15.104 2 13.946 2c-1.999 0-3.998-.001-5.997-.001zM6.5 10.5V5.5l4 2.5-4 2.5z" />
+              </svg>
             </a>
           </div>
         </div>
@@ -95,7 +138,7 @@ export default function ContactPage() {
                 id="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A0007E] focus:ring-[#A0007E] dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                 placeholder="Tu nombre"
               />
               {errors.name && (
@@ -114,7 +157,7 @@ export default function ContactPage() {
                 id="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A0007E] focus:ring-[#A0007E] dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                 placeholder="Tu correo electrónico"
               />
               {errors.email && (
@@ -133,7 +176,7 @@ export default function ContactPage() {
                 rows={4}
                 value={formData.message}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A0007E] focus:ring-[#A0007E] dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                 placeholder="Tu mensaje"
               ></textarea>
               {errors.message && (
@@ -142,7 +185,7 @@ export default function ContactPage() {
             </div>
             <button
               type="submit"
-              className="w-full rounded-md bg-purple-600 px-4 py-2 text-white shadow hover:bg-purple-700"
+              className="w-full rounded-md bg-[#A0007E] px-4 py-2 text-white shadow hover:bg-purple-700"
             >
               Enviar
             </button>
@@ -169,7 +212,7 @@ export default function ContactPage() {
       </div>
 
       {/* Company Information */}
-      <div className="bg-gray-100 py-8 dark:bg-gray-800">
+      <div className="bg-[#FFA202] py-8 dark:bg-gray-800">
         <div className="container mx-auto text-center">
           <p className="text-gray-700 dark:text-gray-300">
             Correo: contacto@luzcienciayarte.org
