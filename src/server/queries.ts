@@ -1,7 +1,7 @@
 "use server";
 import { db } from "./db";
 import { auth } from "@clerk/nextjs/server";
-import { cursos, modulos } from "./db/schema";
+import { type cursoCategoriaeEnum, cursos, modulos } from "./db/schema";
 import { courseFormSchema } from "~/lib/validations";
 import { and, count, eq } from "drizzle-orm";
 
@@ -110,4 +110,12 @@ export async function insertModulo(moduloArray: Module[]) {
   } catch (error) {
     return "Error al crear las clases del curso.";
   }
+}
+export async function getCourseByCategory(
+  category: (typeof cursoCategoriaeEnum.enumValues)[number] | undefined,
+) {
+  const curso = await db.query.cursos.findMany({
+    where: category ? eq(cursos.category, category) : undefined,
+  });
+  return curso;
 }

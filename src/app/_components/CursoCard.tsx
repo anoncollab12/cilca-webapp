@@ -1,3 +1,4 @@
+import { Badge } from "~/components/ui/badge";
 import { getAuthorName } from "~/server/queries";
 
 interface CursoCardProps {
@@ -5,7 +6,7 @@ interface CursoCardProps {
   name: string;
   authorid: string;
   urlThumbnail: string;
-  urlTrailer: string;
+  category: string;
   price: string;
 }
 export default async function CursoCard({
@@ -14,7 +15,7 @@ export default async function CursoCard({
   authorid,
   urlThumbnail,
   price,
-  urlTrailer,
+  category,
 }: CursoCardProps) {
   const authorName = await getAuthorName(authorid);
   return (
@@ -26,13 +27,16 @@ export default async function CursoCard({
           alt={name}
         />
       </div>
-      <div className="p-6">
-        <a
-          href={`curso/${id}`}
-          className="text-lg font-semibold leading-tight text-gray-900 hover:underline"
-        >
-          {name}
-        </a>
+      <div className="p-3">
+        <div className="flex">
+          <a
+            href={`curso/${id}`}
+            className="grow text-lg font-semibold leading-tight text-gray-900 hover:underline "
+          >
+            {name}
+          </a>
+          <Badge variant="secondary">{category}</Badge>
+        </div>
 
         <ul className="mt-2 flex items-center gap-4">
           <li className="flex items-center gap-2">
