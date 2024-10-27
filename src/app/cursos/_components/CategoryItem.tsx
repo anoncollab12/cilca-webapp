@@ -1,7 +1,12 @@
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { cn } from "~/lib/utils";
 
-export default function CategoryItem({ category }: { category: string }) {
+interface CategoryItemProps {
+  category: string;
+  icon?: string;
+}
+
+export default function CategoryItem({ category, icon }: CategoryItemProps) {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -29,7 +34,7 @@ export default function CategoryItem({ category }: { category: string }) {
         isSelected && "border-purple-700 bg-purple-200/20 text-purple-800",
       )}
     >
-      {category}
+      {`${icon} ${category}`}
     </button>
   );
 }
