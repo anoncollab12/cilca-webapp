@@ -2,15 +2,27 @@
 import { cursoCategoriaeEnum } from "~/server/db/schema";
 import CategoryItem from "./CategoryItem";
 
-const iconMap: Record<string, string> = {
-  Arte: "🎨",
-  Ciencia: "🧪",
-  Espiritual: "🙏",
-  Negocios: "📈",
-  Idiomas: "💭",
-  Cocina: "🍽",
-  Musica: "🎵",
-  Deportes: "🏅",
+import {
+  MdOutlineChatBubbleOutline,
+  MdOutlineChurch,
+  MdOutlineEmojiEvents,
+  MdOutlineInsertChartOutlined,
+  MdOutlineMusicNote,
+  MdOutlinePalette,
+  MdOutlineRestaurant,
+  MdOutlineScience,
+} from "react-icons/md";
+import { type IconType } from "react-icons";
+
+const iconMap: Record<string, IconType> = {
+  Arte: MdOutlinePalette,
+  Ciencia: MdOutlineScience,
+  Espiritual: MdOutlineChurch,
+  Negocios: MdOutlineInsertChartOutlined,
+  Idiomas: MdOutlineChatBubbleOutline,
+  Cocina: MdOutlineRestaurant,
+  Musica: MdOutlineMusicNote,
+  Deportes: MdOutlineEmojiEvents,
 };
 
 export default function CategorySelection() {

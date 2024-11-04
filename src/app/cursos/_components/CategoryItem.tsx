@@ -1,12 +1,16 @@
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { type IconType } from "react-icons";
 import { cn } from "~/lib/utils";
 
 interface CategoryItemProps {
   category: string;
-  icon?: string;
+  icon?: IconType;
 }
 
-export default function CategoryItem({ category, icon }: CategoryItemProps) {
+export default function CategoryItem({
+  category,
+  icon: Icon,
+}: CategoryItemProps) {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -34,7 +38,8 @@ export default function CategoryItem({ category, icon }: CategoryItemProps) {
         isSelected && "border-purple-700 bg-purple-200/20 text-purple-800",
       )}
     >
-      {`${icon} ${category}`}
+      {Icon && <Icon size={20} />}
+      <div className="truncate">{category}</div>
     </button>
   );
 }
