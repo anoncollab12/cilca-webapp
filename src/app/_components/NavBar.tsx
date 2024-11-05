@@ -45,7 +45,6 @@ export default function NavBar() {
               aria-controls="mobile-menu-2"
               aria-expanded="false"
             >
-              <span className="sr-only">Open main menu</span>
               {isMenuOpen ? (
                 <svg
                   className="h-6 w-6"
