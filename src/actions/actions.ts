@@ -15,7 +15,6 @@ export async function createCheckoutSession(price: number) {
   }
   const email = user.emailAddresses?.[0]?.emailAddress;
   const priceToCents = price * 100;
-  console.log(priceToCents);
   const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
   // create checkout session

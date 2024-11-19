@@ -31,6 +31,17 @@ export async function getNumberOfModules(idCurso: number) {
   }
 }
 
+export async function getAllModules(idCurso: number) {
+  try {
+    const result = await db.query.modulos.findMany({
+      where: (modulo, { eq }) => eq(modulo.cursoId, idCurso),
+    });
+    return result;
+  } catch (e) {
+    return [];
+  }
+}
+
 export async function getModulo(idCurso: number, order: number) {
   const result = await db.query.modulos.findFirst({
     where: (modulo, { eq }) =>

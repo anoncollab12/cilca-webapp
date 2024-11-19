@@ -1,4 +1,4 @@
-import { getCourse } from "~/server/queries";
+import { getAllModules, getCourse } from "~/server/queries";
 import { TitleForm } from "../../_components/title-form";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { DescriptionForm } from "../../_components/description-form";
@@ -8,7 +8,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { PriceForm } from "../../_components/price-form";
 import { Separator } from "~/components/ui/separator";
-import ModuleAddForm from "~/app/_components/ModuleAddForm";
+import ModuleEditForm from "../../_components/module-edit-form";
 
 export default async function Edit({
   params,
@@ -21,6 +21,8 @@ export default async function Edit({
 
   if (Number.isNaN(idAsNumber)) throw new Error("Curso ID invalido");
   const curso = await getCourse(idAsNumber);
+
+  const modules = await getAllModules(idAsNumber);
 
   if (
     sessionsClaims?.metadata.role != "admin" &&
@@ -60,7 +62,7 @@ export default async function Edit({
             <div className="py-5">
               <CardTitle>Editar las clases del curso</CardTitle>
             </div>
-            <ModuleAddForm />
+            <ModuleEditForm courseId={idAsNumber} modules={modules} />
           </CardContent>
         </Card>
       </div>
