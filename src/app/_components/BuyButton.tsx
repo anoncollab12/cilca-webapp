@@ -2,11 +2,17 @@
 import { createCheckoutSession } from "~/actions/actions";
 import { Button } from "~/components/ui/button";
 
-export default function BuyButton({ price }: { price: number }) {
+export default function BuyButton({
+  price,
+  courseId,
+}: {
+  price: number;
+  courseId: number;
+}) {
   return (
     <Button
       onClick={async () => {
-        await createCheckoutSession(price);
+        await createCheckoutSession(price, courseId);
       }}
     >
       <svg

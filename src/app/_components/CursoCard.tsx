@@ -83,7 +83,7 @@ export default async function CursoCard({
           <p className="text-2xl font-extrabold leading-tight text-gray-900">
             {`$${price}`}
           </p>
-          <BuyButton price={Number(price)} />
+          <BuyButton price={Number(price)} courseId={id} />
         </div>
       </div>
     </div>

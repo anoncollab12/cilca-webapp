@@ -107,7 +107,7 @@ export default async function Curso({
             </div>
 
             <div className="mt-6 sm:mt-8 sm:flex sm:items-center sm:gap-4">
-              <BuyButton price={Number(curso.price)} />
+              <BuyButton price={Number(curso.price)} courseId={idAsNumber} />
             </div>
 
             <hr className="my-6 border-gray-200 dark:border-gray-800 md:my-8" />

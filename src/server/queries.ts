@@ -130,3 +130,11 @@ export async function getCourseByCategory(
   });
   return curso;
 }
+
+export async function checkEnrolled(courseId: number, userId: string) {
+  const result = await db.query.enrollment.findFirst({
+    where: (enrollment, { eq }) =>
+      and(eq(enrollment.cursoId, courseId), eq(enrollment.userId, userId)),
+  });
+  return result !== null;
+}

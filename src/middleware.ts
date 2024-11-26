@@ -1,7 +1,11 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 const isProtectedRoute = createRouteMatcher(["/admin(.*)", "/instructor(.*)"]);
+const publicRoutes = ["/api/webhook"];
 
 export default clerkMiddleware((auth, req) => {
+  if (publicRoutes.includes(req.url)) {
+    return;
+  }
   if (!auth().userId && isProtectedRoute(req)) {
     return auth().redirectToSignIn();
   }

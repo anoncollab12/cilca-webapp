@@ -8,11 +8,12 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-export async function createCheckoutSession(price: number) {
+export async function createCheckoutSession(price: number, courseId: number) {
   const user = await currentUser();
   if (!user) {
     redirect("/sign-in");
   }
+
   const email = user.emailAddresses?.[0]?.emailAddress;
   const priceToCents = price * 100;
   const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -31,8 +32,12 @@ export async function createCheckoutSession(price: number) {
       },
     ],
     mode: "payment",
-    success_url: `${process.env.CANONICAL_URL}`,
-    cancel_url: `${process.env.CANONICAL_URL}`,
+    success_url: `${process.env.CANONICAL_URL}/curso/${courseId}/modulo/1?success=1`,
+    cancel_url: `${process.env.CANONICAL_URL}/curso/${courseId}?cancelled=1`,
+    metadata: {
+      courseId: courseId,
+      userId: user.id,
+    },
   });
 
   // redirect user
